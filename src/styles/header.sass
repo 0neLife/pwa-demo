@@ -1,0 +1,62 @@
+@import './_vars'
+
+body
+	overflow-x: hidden
+	margin: 0
+	padding: 0
+	position: relative
+	min-width: 320px
+	font-family: $primary_font
+	font-weight: $light
+	font-size: $primary-fs
+	color: $dark-light-text
+	line-height: 1.6
+	// background-color:	rgb(248, 249, 250)
+
+h1, h2, h3, h4, h5, h6
+	font-family: $secondary-font
+	color: $dark-deep-text
+
+h1, h2, h3, h4, h5, h6, ul, p
+	margin: 0
+	padding: 0
+	list-style-type: none
+
+input,
+textarea,
+button
+	outline: none
+	border: none
+	font-size: $primary-fs
+
+button
+	margin: 0
+	padding: 0
+	cursor: pointer
+	background-color: transparent
+
+.flex-center
+	display: flex
+	justify-content: center
+	align-items: center
+
+.inline-flex-center
+	display: inline-flex
+	justify-content: center
+	align-items: center
+
+.btn
+	width: 224px
+	height: 52px
+	line-height: 36px
+	font-size: $primary-fs
+	font-weight: $bold
+	border-radius: $border-radius-for-btn
+	color: $white-text
+	background-color: $orange
+	transition: background-color .3s
+	&:hover
+		background-color: $dark-orange
+
+a
+	text-decoration: none

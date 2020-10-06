@@ -1,0 +1,51 @@
+@import "_fonts.sass"
+@import "_preloader.sass"
+@import "_vars.sass"
+@import "_forms.sass"
+
+body
+	main
+		display: none
+		#main-page-wrapper
+			display: none
+
+body.main-page-wrapper--active
+	main
+		display: block
+		#main-page-wrapper
+			display: block
+		.main-page__footer-wrapper
+			display: block
+
+.img-wrap
+	@extend %extend_flex_center
+	flex-direction: column
+	img
+		height: auto
+	h3
+		margin-top: 20px
+
+main
+	overflow-x: hidden
+
+main.main-page-wrapper--active
+	display: block
+	#main-page-wrapper
+		display: block
+
+.section-title
+	font-size: $fs-xxl
+	line-height: 24px
+
+.backdrop
+	z-index: -1
+	position: absolute
+	width: 100vw
+	margin-left: -50vw
+	top: 0
+	left: 50%
+	height: 100%
+	background: linear-gradient(90deg, #4794FB 0%, #1351F4 100%)
+	
+// ALWAYS END
+@import "_media.sass"

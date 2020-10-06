@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>PWA demo</title>
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width initial-scale=1 maximum-scale=1">
+
+	<meta name="theme-color" content="#173f5f" />
+	<meta name="apple-mobile-web-app-status-bar" content="#173f5f" />
+
+	<link rel="apple-touch-icon" href="img/favicon.png" type="image/x-icon">
+	<link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+
+	<link rel="stylesheet" href="libs/bootstrap-grid-4.0.0.min.css">
+	<link rel="stylesheet" href="css/header.min.css">
+	<link rel="stylesheet" href="css/main.min.css">
+	<link rel="manifest" href="manifest.json" />
+
+	<!-- icon in the highest resolution we need it for splash screen -->
+	<link rel="icon" sizes="192x192" href="img/icon/android-icon-192x192.png" />
+
+	<!-- reuse same icon for Safari -->
+	<link rel="apple-touch-icon" href="img/icon/android-icon-192x192.png" />
+</head>
+
+<body class="main-page-wrapper--active">
+	<header></header>
+	<main>
+		<section class="main-wrapper">
+			<div class="img-wrap">
+				<img src="img/pwa-banner-768x432.png" alt="pwa-logo">
+				<h3>A simple PWA Starter Kit for modern web development.</h3>
+			</div>
+		</section>
+	</main>
+	<footer></footer>
+
+	<div class="loader backdrop app active">
+		<div class="wrapper center app lg">
+			<div class="chasing-dots"></div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="libs/jquery.min.js"></script>
+	<script type="text/javascript" src="js/registerWorker.min.js"></script>
+	<script type="text/javascript" src="js/common.min.js"></script>
+
+</body>
+
+</html>
