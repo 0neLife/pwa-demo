@@ -1,20 +1,18 @@
-"use strict";
-
 // load plugins
-const autoprefixer    = require('autoprefixer'),
-      browsersync     = require('browser-sync').create(),
-      del             = require('del'),
-      exec            = require('child_process').exec, // run command-line programs from gulp
-      cssnano         = require('cssnano'),
-      imageminMozjpeg = require('imagemin-mozjpeg'),
-      gulp            = require('gulp'),
-      surge           = require('gulp-surge'),
-      sass            = require('gulp-sass'),
-      rename          = require('gulp-rename'),
-      uglify          = require('gulp-uglify'),
-      babel           = require('gulp-babel'),
-      postcss         = require('gulp-postcss'),
-      imagemin        = require('gulp-imagemin');
+const autoprefixer = require('autoprefixer'),
+  browsersync = require('browser-sync').create(),
+  del = require('del'),
+  exec = require('child_process').exec, // run command-line programs from gulp
+  cssnano = require('cssnano'),
+  imageminMozjpeg = require('imagemin-mozjpeg'),
+  gulp = require('gulp'),
+  babel = require('gulp-babel'),
+  surge = require('gulp-surge'),
+  sass = require('gulp-sass'),
+  rename = require('gulp-rename'),
+  uglify = require('gulp-uglify'),
+  postcss = require('gulp-postcss'),
+  imagemin = require('gulp-imagemin');
 
 // load gulp api methods
 const { series, src, dest, parallel } = require('gulp');
@@ -125,10 +123,10 @@ function styles() {
 function sWscripts() {
   return (
     src('src/**/sw.js')
-    .pipe(babel({
-          presets: ['@babel/env']
-      }))
-      .pipe(uglify())
+      .pipe(
+        babel({
+          plugins: ['@babel/transform-runtime']
+        }))
       .pipe(dest('dist'))
   )
 }
@@ -137,11 +135,10 @@ function sWscripts() {
 function scripts() {
   return (
     src('src/js/**/*.js')
-    .pipe(babel({
-          presets: ['@babel/env']
+      .pipe(
+        babel({
+          plugins: ['@babel/transform-runtime']
       }))
-      .pipe(uglify())
-      .pipe(rename({ suffix: '.min' }))
       .pipe(dest('dist/js'))
   )
 }
@@ -177,8 +174,8 @@ function git(done) {
 // Deploy prodject to surge
 function surgeDeploy(done) {
   return surge({
-  project: './dist', // Path to your static build directory
-  domain: null  // Your domain or Surge subdomain
+    project: './dist', // Path to your static build directory
+    domain: null  // Your domain or Surge subdomain
   })
 }
 
