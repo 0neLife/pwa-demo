@@ -1,48 +1,60 @@
 // registration --> installation --> activation
 const staticCacheName = 'static-cache-v1.0';
 const dynamicCacheName = 'dynamic-cache-v1.0';
-const staticAssets = ['./', './index.html', './offline.html', './css/main.min.css', './css/header.min.css', './js/registerWorker.js', './js/common.js'];
-self.addEventListener('install', async event => {
-  const cache = await caches.open(staticCacheName);
-  await cache.addAll(staticAssets);
-  console.log('Service worker has been installed:', event);
+const staticAssets = ['./', './index.html', './css/main.min.css', './css/header.min.css', './js/registerWorker.js', './js/common.js'];
+self.addEventListener('install', function (e) {
+  console.log('[ServiceWorker] Install');
+  e.waitUntil(caches.open(staticCacheName).then(function (cache) {
+    console.log('[ServiceWorker] Caching app shell');
+    return cache.addAll(staticAssets);
+  }));
 });
-self.addEventListener('activate', async event => {
-  const cachesKeys = await caches.keys();
-  const checkKeys = cachesKeys.map(async key => {
-    if (staticCacheName !== key) {
-      await caches.delete(key);
-    }
-  });
-  await Promise.all(checkKeys);
-  console.log('Service worker has been activated:', event);
+self.addEventListener('activate', event => {
+  event.waitUntil(self.clients.claim());
 });
-self.addEventListener('fetch', async event => {
-  console.log('Trying to fetch:', event.request.url);
-  event.respondWith(checkCache(event.request));
-});
-
-async function checkCache(req) {
-  const cachedResponse = await caches.match(req);
-  return cachedResponse || checkOnline(req);
-}
-
-async function checkOnline(req) {
-  const cache = await caches.open(dynamicCacheName);
-
-  try {
-    const res = await fetch(req);
-    await cache.put(req, res.clone());
-    return res;
-  } catch (error) {
-    const cachedRes = await cache.match(req);
-
-    if (cachedRes) {
-      return cachedRes;
-    } else if (req.url.includes('.html')) {
-      return caches.match('./offline.html');
-    } else {
-      console.log('return caches.match(./images/no-image.jpg)');
-    }
-  }
-}
+self.addEventListener('fetch', event => {
+  event.respondWith(caches.match(event.request, {
+    ignoreSearch: true
+  }).then(response => {
+    return response || fetch(event.request);
+  }));
+}); // self.addEventListener('install', async (event) => {
+//   const cache = await caches.open(staticCacheName);
+//   await cache.addAll(staticAssets);
+//   console.log('Service worker has been installed:', event);
+// });
+// self.addEventListener('activate', async (event) => {
+//   const cachesKeys = await caches.keys();
+//   const checkKeys = cachesKeys.map(async (key) => {
+//     if (staticCacheName !== key) {
+//       await caches.delete(key);
+//     }
+//   });
+//   await Promise.all(checkKeys);
+//   console.log('Service worker has been activated:', event);
+// });
+// self.addEventListener('fetch', async (event) => {
+//   console.log('Trying to fetch:', event.request.url);
+//   event.respondWith(checkCache(event.request));
+// });
+// async function checkCache(req) {
+//   const cachedResponse = await caches.match(req);
+//   return cachedResponse || checkOnline(req);
+// }
+// async function checkOnline(req) {
+//   const cache = await caches.open(dynamicCacheName);
+//   try {
+//     const res = await fetch(req);
+//     await cache.put(req, res.clone());
+//     return res;
+//   } catch (error) {
+//     const cachedRes = await cache.match(req);
+//     if (cachedRes) {
+//       return cachedRes;
+//     } else if (req.url.includes('.html')) {
+//       return caches.match('./offline.html');
+//     } else {
+//       console.log('return caches.match(./images/no-image.jpg)');
+//     }
+//   }
+// }
