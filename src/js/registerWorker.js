@@ -7,7 +7,7 @@ window.addEventListener('load', () => {
 
       })
       .catch((error) => {
-        console.log('Service worker registration failed:', error;
+        console.log('Service worker registration failed:', error);
       });
   }
 });
