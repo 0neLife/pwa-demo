@@ -1,3 +1,4 @@
+// registration --> installation --> activation
 const staticCacheName = 'static-cache-v1.0';
 const dynamicCacheName = 'dynamic-cache-v1.0';
 const staticAssets = ['./', './index.html', './offline.html', './css/main.min.css', './css/header.min.css', './js/registerWorker.js', './js/common.js'];

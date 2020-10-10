@@ -101,8 +101,8 @@ function compressionImages() {
 // compression all images
 function compressionPwaIcons() {
   return (
-    src('src/img/icon/*')
-      .pipe(dest('dist/img/icon/'))
+    src('src/img/icons/*')
+      .pipe(dest('dist/img/icons/'))
   )
 }
 
